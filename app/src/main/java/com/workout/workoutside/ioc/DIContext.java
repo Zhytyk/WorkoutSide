@@ -19,7 +19,7 @@ public class DIContext {
     public static void register() {
         Registrator registrator = getRegistrator();
 
-        registrator.register(MainPresenter.class, Scope.PROTOTYPE);
+        registrator.register(MainPresenter.class, Scope.SINGLETON);
     }
 
     public static Injector getInjector() {

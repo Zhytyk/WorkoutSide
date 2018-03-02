@@ -1,6 +1,7 @@
 package com.workout.workoutside.ioc;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 /**
  * Created by pavel on 17.02.2018.
@@ -51,15 +52,15 @@ public class RegisteredType {
         this.params = params;
     }
 
-    public Object get_instance(Object... params) {
+    public Object get_instance(Class<?>[] types, Object[] params) {
         if (_instance == null || scope.equals(Scope.PROTOTYPE)) {
-            newInstance(params);
+            newInstance(types, params);
         }
 
         return _instance;
     }
 
-    private void newInstance(Object... params) {
+    private void newInstance(Class<?>[] types, Object[] params) {
         try {
             if (isParamsEmpty(params)) {
                 params = this.params;
@@ -70,7 +71,7 @@ public class RegisteredType {
                 }
             }
 
-            _instance = clazz.getDeclaredConstructor(String.class).newInstance(params);
+            _instance = clazz.getDeclaredConstructor(types).newInstance(params);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

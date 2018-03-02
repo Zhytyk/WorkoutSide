@@ -5,5 +5,7 @@ package com.workout.workoutside.ioc.api;
  */
 
 public interface Injector {
-    <T> T getInstance(Class<?> clazz, Object... params);
+    <T> T getInstance(Class<?> clazz, Class<?>[] paramTypes, Object... params);
+
+    <T> T getInstance(Class<?> clazz, Class<?> paramType, Object param);
 }

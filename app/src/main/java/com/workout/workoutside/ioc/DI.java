@@ -29,10 +29,21 @@ public class DI implements Injector, Registrator {
     }
 
     @Override
-    public <T> T getInstance(Class<?> clazz, Object... params) {
+    public <T> T getInstance(Class<?> clazz, Class<?>[] paramTypes, Object... params) {
         for (RegisteredType type : types) {
             if (type.getClazz().equals(clazz)) {
-                return (T) type.get_instance(params);
+                return (T) type.get_instance(paramTypes, params);
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public <T> T getInstance(Class<?> clazz, Class<?> paramType, Object param) {
+        for (RegisteredType type : types) {
+            if (type.getClazz().equals(clazz)) {
+                return (T) type.get_instance(new Class<?>[] { paramType }, new Object[] { param });
             }
         }
 
